@@ -3,9 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     const [data, setData] = useState([])
-    const [id, setId] = useState("")
-    const [media_url, setMedia_url] = useState("")
-    const [category_name, setCategory_name] = useState("")
     useEffect(() => {
         fetch("https://cheersat7.herokuapp.com/api/v1/category/get-categories-by-type", {
                 method: 'POST',
@@ -38,19 +35,14 @@ function App() {
         let identity = window.prompt("ID");
         let media = window.prompt("Media_url");
         let name = window.prompt("category_name");
-        setId(identity);
-        setMedia_url(media);
-        setCategory_name(name);
-        console.log(id, category_name, media_url);
-        let input = {
-            "_id": id,
-            "category_name": category_name,
-            "media_url": media_url
-        }
-        console.log(input);
-        setData((prevItem) => {
-            return [input, ...prevItem];
-        });
+        setData((prevFriends) => [
+        {
+            "_id": identity,
+            "category_name": name,
+            "media_url": media
+        },...prevFriends,
+    ]);
+
     }
 
     function handleRemoveItem(iden) {
@@ -62,9 +54,15 @@ function App() {
     }
 
     function handleUpdateItem(iden) {
-        alert("we are updating category name")
-        let updateCategory_name = window.prompt("name")
-        data.splice(1, 0, updateCategory_name);
+        alert("we are updating category name");
+      let updatedCategort_name=window.prompt("new category name")
+      setData(
+            data.map((info) =>
+                info._id === iden
+                    ? { ...info, category_name: updatedCategort_name }
+                    : { ...info}
+            )
+        );
         console.warn("updated array", data);
     }
     return ( <div className="App">
@@ -74,7 +72,7 @@ function App() {
                     <img src={ item.media_url } className="card-img-top" alt="..." />
                     <div className="card-body">
                     <h5 className="card-title">{item.category_name} </h5> 
-                    <span type="button" onClick={()=>handleUpdateItem(i)} className="btn btn-dark" style={{ margin: "10%" }}>UPDATE</span> 
+                    <span type="button" onClick={()=>handleUpdateItem(item._id)} className="btn btn-dark" style={{ margin: "10%" }}>UPDATE</span> 
                     <span type = "button" onClick={() => handleRemoveItem(i)} className = "btn btn-dark">DELETE</span>
                     </div> </div>)
                 })
