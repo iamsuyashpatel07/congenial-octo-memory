@@ -46,10 +46,13 @@ function App() {
     }
 
     function handleRemoveItem(iden) {
-        alert("we are removing " + data[iden].category_name);
-        console.log("datadelete", data)
-        data.splice(iden, 1);
-        setData(data);
+      alert(iden);
+        console.log("datadelete", data[iden]);
+            //var newdata=
+         data.splice(iden,1);
+        //setData(newdata);
+           setData(data);
+            useEffect()
         console.log("datadeleted", data);
     }
 
