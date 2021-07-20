@@ -52,7 +52,6 @@ function App() {
          data.splice(iden,1);
         //setData(newdata);
            setData(data);
-            useEffect()
         console.log("datadeleted", data);
     }
 
