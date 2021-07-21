@@ -45,13 +45,13 @@ function App() {
 
     }
 
-    function handleRemoveItem(iden) {
+   function handleRemoveItem(iden) {
       alert(iden);
         console.log("datadelete", data[iden]);
             //var newdata=
-         data.splice(iden,1);
+       var newd=data.filter((element) => element._id !==iden)
         //setData(newdata);
-           setData(data);
+           setData(newd);
         console.log("datadeleted", data);
     }
 
@@ -75,7 +75,7 @@ function App() {
                     <div className="card-body">
                     <h5 className="card-title">{item.category_name} </h5> 
                     <span type="button" onClick={()=>handleUpdateItem(item._id)} className="btn btn-dark" style={{ margin: "10%" }}>UPDATE</span> 
-                    <span type = "button" onClick={() => handleRemoveItem(i)} className = "btn btn-dark">DELETE</span>
+                    <span type = "button" onClick={() => handleRemoveItem(item._id)} className = "btn btn-dark">DELETE</span>
                     </div> </div>)
                 })
         } </div>
